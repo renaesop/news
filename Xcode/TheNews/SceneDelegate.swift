@@ -23,10 +23,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
 
-        let navigationController = UINavigationController(rootViewController: NewsViewController())
-        navigationController.navigationBar.prefersLargeTitles = true
-
-        window?.rootViewController = navigationController
+        // Create News tab
+        let newsVC = NewsViewController()
+        let newsNav = UINavigationController(rootViewController: newsVC)
+        newsNav.navigationBar.prefersLargeTitles = true
+        newsNav.tabBarItem = UITabBarItem(title: "新闻", image: UIImage(systemName: "newspaper"), tag: 0)
+        
+        // Create Favorites tab
+        let favoritesVC = FavoritesViewController()
+        let favoritesNav = UINavigationController(rootViewController: favoritesVC)
+        favoritesNav.navigationBar.prefersLargeTitles = true
+        favoritesNav.tabBarItem = UITabBarItem(title: "收藏", image: UIImage(systemName: "heart.fill"), tag: 1)
+        
+        // Create tab bar controller
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [newsNav, favoritesNav]
+        
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
     }
 

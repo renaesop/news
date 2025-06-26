@@ -22,7 +22,7 @@ class ApolloCell: NewsCell {
         url.textColor = .secondaryLabel
         url.font = .preferredFont(forTextStyle: .subheadline)
 
-        [title, articleImageView, source, ago].forEach {
+        [title, articleImageView, source, ago, favoriteButton].forEach {
             contentView.addSubviewForAutoLayout($0)
         }
 
@@ -31,7 +31,7 @@ class ApolloCell: NewsCell {
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
             title.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: title.trailingAnchor),
+            title.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             articleImageView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: inset),
             articleImageView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
@@ -44,7 +44,13 @@ class ApolloCell: NewsCell {
             ago.topAnchor.constraint(equalTo: source.bottomAnchor, constant: 7),
             ago.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
 
-            contentView.bottomAnchor.constraint(equalTo: ago.bottomAnchor, constant: inset)
+            contentView.bottomAnchor.constraint(equalTo: ago.bottomAnchor, constant: inset),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
 
         let banner = UIView()

@@ -13,6 +13,9 @@ class NewsCell: UITableViewCell {
     var source = UILabel()
     var summary = UILabel()
     var title = UILabel()
+    
+    var favoriteButton = UIButton(type: .system)
+    var favoriteAction: (() -> Void)?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
@@ -39,6 +42,19 @@ class NewsCell: UITableViewCell {
         articleImageView.backgroundColor = .secondarySystemBackground
         articleImageView.contentMode = .scaleAspectFill
         articleImageView.clipsToBounds = true
+        
+        // Configure favorite button
+        favoriteButton.tintColor = .systemRed
+        favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc private func favoriteButtonTapped() {
+        favoriteAction?()
+    }
+    
+    func updateFavoriteButton(isFavorite: Bool) {
+        let imageName = isFavorite ? "heart.fill" : "heart"
+        favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
 
     func load(urlString: String?,

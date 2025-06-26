@@ -103,6 +103,8 @@
 		D7BC21CA2D726BE10050836A /* TapestryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BC21C82D726BE10050836A /* TapestryCell.swift */; };
 		D7E879102D7132D600370650 /* BlueskyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E8790E2D7132D600370650 /* BlueskyCell.swift */; };
 		D7E879112D7132D600370650 /* BlueskyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E8790F2D7132D600370650 /* BlueskyHandler.swift */; };
+		E1F2A3B42D8A1C3D00123456 /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2A3B32D8A1C3D00123456 /* FavoritesManager.swift */; };
+		E1F2A3B62D8A1C3D00123457 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2A3B52D8A1C3D00123457 /* FavoritesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -230,6 +232,8 @@
 		D7BC21C82D726BE10050836A /* TapestryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapestryCell.swift; sourceTree = "<group>"; };
 		D7E8790E2D7132D600370650 /* BlueskyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueskyCell.swift; sourceTree = "<group>"; };
 		D7E8790F2D7132D600370650 /* BlueskyHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueskyHandler.swift; sourceTree = "<group>"; };
+		E1F2A3B32D8A1C3D00123456 /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
+		E1F2A3B52D8A1C3D00123457 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -422,6 +426,8 @@
 				6560AE5E24411C4C00581008 /* Info.plist */,
 				6560AE5024411C4A00581008 /* AppDelegate.swift */,
 				65C383992587255A008F1411 /* Extension.swift */,
+				E1F2A3B32D8A1C3D00123456 /* FavoritesManager.swift */,
+				E1F2A3B52D8A1C3D00123457 /* FavoritesViewController.swift */,
 				65215EDE24438F08008B4D5A /* ImageDownloader.swift */,
 				65293A44244172F2002E5BC3 /* NewsViewController.swift */,
 				6507850D25870360001ABDAE /* NewsViewModel.swift */,
@@ -878,6 +884,8 @@
 				65580AA525904AE800D1287F /* AxiosCell.swift in Sources */,
 				65C3839D2587255B008F1411 /* Extension.swift in Sources */,
 				D7044E2D2AD7635C00D5EC4A /* ArtifactCell.swift in Sources */,
+				E1F2A3B42D8A1C3D00123456 /* FavoritesManager.swift in Sources */,
+				E1F2A3B62D8A1C3D00123457 /* FavoritesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
