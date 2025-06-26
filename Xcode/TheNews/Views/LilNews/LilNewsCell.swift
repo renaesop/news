@@ -108,5 +108,13 @@ class LilNewsCell: UICollectionViewCell {
 
         imageView.load(urlString: article.urlToImage, downloader: downloader)
     }
+    
+    func configureFavoriteButton(for article: Article, in collectionView: UICollectionView, at indexPath: IndexPath) {
+        self.updateFavoriteButton(isFavorite: FavoritesManager.shared.isFavorite(article))
+        self.favoriteAction = { [weak collectionView] in
+            FavoritesManager.shared.toggleFavorite(article)
+            collectionView?.reloadItems(at: [indexPath])
+        }
+    }
 
 }
