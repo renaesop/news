@@ -83,15 +83,6 @@ extension UITableView {
 
 }
 
-extension NewsCell {
-    func configureFavoriteButton(for article: Article, in tableView: UITableView, at indexPath: IndexPath) {
-        self.updateFavoriteButton(isFavorite: FavoritesManager.shared.isFavorite(article))
-        self.favoriteAction = { [weak tableView] in
-            FavoritesManager.shared.toggleFavorite(article)
-            tableView?.reloadRows(at: [indexPath], with: .none)
-        }
-    }
-}
 
 extension UIView {
     func addSubviewForAutoLayout(_ view: UIView) {
