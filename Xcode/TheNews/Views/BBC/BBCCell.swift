@@ -32,7 +32,7 @@ class BBCCell: NewsCell {
             main.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor)
         ])
 
-        [articleImageView, title, ago].forEach {
+        [articleImageView, title, ago, favoriteButton].forEach {
             main.addSubviewForAutoLayout($0)
         }
 
@@ -44,13 +44,19 @@ class BBCCell: NewsCell {
 
             title.topAnchor.constraint(equalTo: articleImageView.topAnchor, constant: -4),
             title.leadingAnchor.constraint(equalTo: articleImageView.trailingAnchor, constant: inset),
-            main.trailingAnchor.constraint(equalTo: title.trailingAnchor),
+            title.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -inset),
 
             ago.leadingAnchor.constraint(equalTo: articleImageView.trailingAnchor, constant: inset),
-            main.trailingAnchor.constraint(equalTo: ago.trailingAnchor),
+            ago.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -inset),
             ago.topAnchor.constraint(equalTo: title.bottomAnchor, constant: inset),
 
-            main.bottomAnchor.constraint(equalTo: ago.bottomAnchor)
+            main.bottomAnchor.constraint(equalTo: ago.bottomAnchor),
+            
+            // Favorite button constraints
+            favoriteButton.centerYAnchor.constraint(equalTo: main.centerYAnchor),
+            favoriteButton.trailingAnchor.constraint(equalTo: main.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
 

@@ -19,7 +19,7 @@ class CNNCell: NewsCell {
         ago.textColor = .secondaryLabel
         ago.font = .preferredFont(forTextStyle: .caption1)
 
-        [articleImageView, summary, ago].forEach { item in
+        [articleImageView, summary, ago, favoriteButton].forEach { item in
             contentView.addSubviewForAutoLayout(item)
         }
 
@@ -33,12 +33,18 @@ class CNNCell: NewsCell {
 
             summary.topAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: inset),
             summary.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor ),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: summary.trailingAnchor ),
+            summary.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             ago.topAnchor.constraint(equalTo: summary.bottomAnchor, constant: inset),
             ago.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
 
-            contentView.bottomAnchor.constraint(equalTo: ago.bottomAnchor, constant: inset)
+            contentView.bottomAnchor.constraint(equalTo: ago.bottomAnchor, constant: inset),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: summary.topAnchor),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
 

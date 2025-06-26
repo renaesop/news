@@ -7,6 +7,9 @@ import UIKit
 class UIKitCell: UITableViewCell {
 
     static let identifier = "UIKitCell"
+    
+    var favoriteButton = UIButton(type: .system)
+    var favoriteAction: (() -> Void)?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
@@ -21,8 +24,30 @@ class UIKitCell: UITableViewCell {
         textLabel?.numberOfLines = 0
         detailTextLabel?.numberOfLines = 0
         detailTextLabel?.textColor = .secondaryLabel
+        
+        // Configure favorite button
+        favoriteButton.tintColor = .systemRed
+        favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+        
+        contentView.addSubviewForAutoLayout(favoriteButton)
+        
+        NSLayoutConstraint.activate([
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
     }
 
+    @objc private func favoriteButtonTapped() {
+        favoriteAction?()
+    }
+    
+    func updateFavoriteButton(isFavorite: Bool) {
+        let imageName = isFavorite ? "heart.fill" : "heart"
+        favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
+    }
+    
     func load(article: Article) {
         textLabel?.text = article.title
         detailTextLabel?.text = article.description

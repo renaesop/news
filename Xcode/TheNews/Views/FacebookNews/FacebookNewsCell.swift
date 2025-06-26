@@ -25,7 +25,7 @@ class FacebookNewsCell: NewsCell {
         logo.layer.cornerRadius = FacebookNewsCell.logoSize.width / 2
         logo.layer.masksToBounds = true
 
-        [articleImageView, logo, source, title].forEach { item in
+        [articleImageView, logo, source, title, favoriteButton].forEach { item in
             contentView.addSubviewForAutoLayout(item)
         }
 
@@ -47,9 +47,15 @@ class FacebookNewsCell: NewsCell {
 
             title.topAnchor.constraint(equalTo: source.bottomAnchor, constant: 10),
             title.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: title.trailingAnchor),
+            title.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
-            contentView.bottomAnchor.constraint(equalTo: title.bottomAnchor, constant: inset)
+            contentView.bottomAnchor.constraint(equalTo: title.bottomAnchor, constant: inset),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: title.topAnchor),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
 

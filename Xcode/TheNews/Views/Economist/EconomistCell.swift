@@ -17,7 +17,7 @@ class EconomistCell: NewsCell {
         
         ago.font = .systemFont(ofSize: 13)
 
-        [logo, title, author, source, ago, articleImageView].forEach {
+        [logo, title, author, source, ago, articleImageView, favoriteButton].forEach {
             contentView.addSubviewForAutoLayout($0)
         }
 
@@ -27,6 +27,7 @@ class EconomistCell: NewsCell {
         NSLayoutConstraint.activate([
             source.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset + 5),
             source.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+            source.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             title.topAnchor.constraint(equalTo: source.bottomAnchor, constant: 5),
             title.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
@@ -39,7 +40,13 @@ class EconomistCell: NewsCell {
 
             ago.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 22),
             ago.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 0),
-            contentView.bottomAnchor.constraint(equalTo: ago.bottomAnchor, constant: inset + 5)
+            contentView.bottomAnchor.constraint(equalTo: ago.bottomAnchor, constant: inset + 5),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset + 5),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
 
     }

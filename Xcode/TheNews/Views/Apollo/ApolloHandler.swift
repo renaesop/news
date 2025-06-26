@@ -16,13 +16,7 @@ class ApolloHandler: NewsTableHandler {
 
         let article = articles[indexPath.row]
         cell.load(article: article)
-        
-        // Configure favorite button
-        cell.updateFavoriteButton(isFavorite: FavoritesManager.shared.isFavorite(article))
-        cell.favoriteAction = { [weak self] in
-            FavoritesManager.shared.toggleFavorite(article)
-            tableView.reloadRows(at: [indexPath], with: .none)
-        }
+        cell.configureFavoriteButton(for: article, in: tableView, at: indexPath)
 
         return cell
     }

@@ -18,7 +18,7 @@ class RobinhoodCell: NewsCell {
         articleImageView.layer.cornerRadius = 6
         articleImageView.layer.masksToBounds = true
 
-        [articleImageView, source, title].forEach {
+        [articleImageView, source, title, favoriteButton].forEach {
             contentView.addSubviewForAutoLayout($0)
         }
 
@@ -28,6 +28,7 @@ class RobinhoodCell: NewsCell {
         NSLayoutConstraint.activate([
             source.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
             source.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topBottomInset),
+            source.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             articleImageView.topAnchor.constraint(equalTo: source.topAnchor),
             contentView.readableContentGuide.trailingAnchor.constraint(equalTo: articleImageView.trailingAnchor),
@@ -39,7 +40,13 @@ class RobinhoodCell: NewsCell {
             articleImageView.leadingAnchor.constraint(equalTo: title.trailingAnchor, constant: inset),
 
             contentView.bottomAnchor.constraint(greaterThanOrEqualTo: articleImageView.bottomAnchor, constant: inset),
-            contentView.bottomAnchor.constraint(greaterThanOrEqualTo: title.bottomAnchor, constant: topBottomInset)
+            contentView.bottomAnchor.constraint(greaterThanOrEqualTo: title.bottomAnchor, constant: topBottomInset),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: topBottomInset),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
 
     }

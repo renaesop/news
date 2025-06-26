@@ -25,7 +25,7 @@ class ArtifactCell: NewsCell {
         ago.textColor = .secondaryLabel
         ago.font = .preferredFont(forTextStyle: .footnote)
 
-        [logo, title, author, source, ago, articleImageView].forEach {
+        [logo, title, author, source, ago, articleImageView, favoriteButton].forEach {
             contentView.addSubviewForAutoLayout($0)
         }
 
@@ -39,6 +39,7 @@ class ArtifactCell: NewsCell {
 
             source.centerYAnchor.constraint(equalTo: logo.centerYAnchor, constant: 0),
             source.leadingAnchor.constraint(equalTo: logo.trailingAnchor, constant: inset - 2),
+            source.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
             
             ago.centerYAnchor.constraint(equalTo: logo.centerYAnchor, constant: 0),
             ago.leadingAnchor.constraint(equalTo: source.trailingAnchor, constant: inset - 2),
@@ -55,7 +56,13 @@ class ArtifactCell: NewsCell {
 
             author.topAnchor.constraint(equalTo: title.bottomAnchor, constant: inset / 2),
             author.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 0),
-            contentView.bottomAnchor.constraint(equalTo: author.bottomAnchor, constant: inset + 5)
+            contentView.bottomAnchor.constraint(equalTo: author.bottomAnchor, constant: inset + 5),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset + 5),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
 
     }

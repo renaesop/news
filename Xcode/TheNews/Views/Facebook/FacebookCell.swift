@@ -31,7 +31,7 @@ class FacebookCell: NewsCell {
         banner.font = .preferredFont(forTextStyle: .caption2)
         banner.textColor = .systemGray
 
-        [logo, ago, source, title, articleImageView, bannerView, banner].forEach { item in
+        [logo, ago, source, title, articleImageView, bannerView, banner, favoriteButton].forEach { item in
             contentView.addSubviewForAutoLayout(item)
         }
 
@@ -45,13 +45,14 @@ class FacebookCell: NewsCell {
 
             source.topAnchor.constraint(equalTo: logo.topAnchor),
             source.leadingAnchor.constraint(equalTo: logo.trailingAnchor, constant: inset),
+            source.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             ago.topAnchor.constraint(equalTo: source.bottomAnchor),
             ago.leadingAnchor.constraint(equalTo: logo.trailingAnchor, constant: inset),
 
             title.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 10),
             title.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: title.trailingAnchor),
+            title.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             articleImageView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 12),
             articleImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -67,7 +68,13 @@ class FacebookCell: NewsCell {
             banner.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
             banner.heightAnchor.constraint(equalToConstant: 40),
 
-            contentView.bottomAnchor.constraint(equalTo: bannerView.bottomAnchor, constant: 15)
+            contentView.bottomAnchor.constraint(equalTo: bannerView.bottomAnchor, constant: 15),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
 
     }

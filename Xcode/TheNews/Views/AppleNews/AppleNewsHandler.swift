@@ -49,6 +49,7 @@ class AppleNewsHandler: NewsTableHandler {
             let cell = tableView.dequeueReusableCell(withIdentifier: AppleNewsCellLarge.identifier) as! AppleNewsCellLarge
             let article = itemsTop[indexPath.row]
             cell.load(article: article)
+            cell.configureFavoriteButton(for: article, in: tableView, at: indexPath)
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: AppleNewsCellStacked.identifier) as! AppleNewsCellStacked
@@ -58,6 +59,7 @@ class AppleNewsHandler: NewsTableHandler {
             let cell = tableView.dequeueReusableCell(withIdentifier: AppleNewsCell.identifier) as! AppleNewsCell
             let article = items[indexPath.row]
             cell.load(article: article)
+            cell.configureFavoriteButton(for: article, in: tableView, at: indexPath)
             return cell
         }
     }

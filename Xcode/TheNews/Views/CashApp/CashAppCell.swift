@@ -25,7 +25,7 @@ class CashAppCell: NewsCell {
         logo.layer.cornerRadius = CashAppCell.logoSize.width / 2
         logo.layer.masksToBounds = true
 
-        [logo, source, ago, title].forEach { item in
+        [logo, source, ago, title, favoriteButton].forEach { item in
             contentView.addSubviewForAutoLayout(item)
         }
 
@@ -38,15 +38,22 @@ class CashAppCell: NewsCell {
 
             source.topAnchor.constraint(equalTo: logo.topAnchor, constant: 2),
             source.leadingAnchor.constraint(equalTo: logo.trailingAnchor, constant: inset),
+            source.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             ago.topAnchor.constraint(equalTo: source.bottomAnchor, constant: 4),
             ago.leadingAnchor.constraint(equalTo: logo.trailingAnchor, constant: inset),
 
             title.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 16),
             title.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: title.trailingAnchor),
+            title.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
-            contentView.bottomAnchor.constraint(equalTo: title.bottomAnchor, constant: 18)
+            contentView.bottomAnchor.constraint(equalTo: title.bottomAnchor, constant: 18),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
 

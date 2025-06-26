@@ -21,7 +21,7 @@ class IMDbCell: NewsCell {
         ago.textColor = .secondaryLabel
         ago.font = .preferredFont(forTextStyle: .footnote)
 
-        [logo, title, source, ago, articleImageView, summary].forEach {
+        [logo, title, source, ago, articleImageView, summary, favoriteButton].forEach {
             contentView.addSubviewForAutoLayout($0)
         }
 
@@ -48,7 +48,13 @@ class IMDbCell: NewsCell {
             articleImageView.widthAnchor.constraint(equalToConstant: imageWidth),
             contentView.readableContentGuide.trailingAnchor.constraint(equalTo: articleImageView.trailingAnchor),
             
-            contentView.bottomAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: inset + 5)
+            contentView.bottomAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: inset + 5),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset + 5),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
 
     }

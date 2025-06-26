@@ -38,11 +38,13 @@ class NBCNewsHandler: NewsTableHandler {
             let cell = tableView.dequeueReusableCell(withIdentifier: NBCNewsCellLarge.identifier) as! NBCNewsCellLarge
             let article = nbcHeaders[indexPath.row]
             cell.load(article: article)
+            cell.configureFavoriteButton(for: article, in: tableView, at: indexPath)
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: NBCNewsCell.identifier) as! NBCNewsCell
             let article = nbcItems[indexPath.row]
             cell.load(article: article, downloader: ImageDownloader.shared)
+            cell.configureFavoriteButton(for: article, in: tableView, at: indexPath)
             return cell
         }
     }

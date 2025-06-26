@@ -14,6 +14,9 @@ class LilNewsCell: UICollectionViewCell {
     var ago = UILabel()
     var summary = UILabel()
     var source = UILabel()
+    
+    var favoriteButton = UIButton(type: .system)
+    var favoriteAction: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -47,8 +50,12 @@ class LilNewsCell: UICollectionViewCell {
         summary.font = .preferredFont(forTextStyle: .body)
 
         source.textColor = .white
+        
+        // Configure favorite button
+        favoriteButton.tintColor = .systemRed
+        favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
 
-        [imageView, title, ago, summary, source].forEach {
+        [imageView, title, ago, summary, source, favoriteButton].forEach {
             contentView.addSubviewForAutoLayout($0)
         }
 
@@ -71,10 +78,26 @@ class LilNewsCell: UICollectionViewCell {
             summary.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 5),
 
             source.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-            title.topAnchor.constraint(equalTo: source.bottomAnchor, constant: 5)
+            source.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
+            title.topAnchor.constraint(equalTo: source.bottomAnchor, constant: 5),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
 
+    @objc private func favoriteButtonTapped() {
+        favoriteAction?()
+    }
+    
+    func updateFavoriteButton(isFavorite: Bool) {
+        let imageName = isFavorite ? "heart.fill" : "heart"
+        favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
+    }
+    
     func load(article: Article, downloader: ImageDownloader) {
         title.text = article.titleDisplay
         ago.text = article.ago

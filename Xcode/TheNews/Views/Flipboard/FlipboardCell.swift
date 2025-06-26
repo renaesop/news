@@ -23,7 +23,7 @@ class FlipboardCell: NewsCell {
         logo.layer.cornerRadius = FlipboardCell.logoSize.width / 2
         logo.layer.masksToBounds = true
 
-        [logo, ago, summary, source, title, articleImageView].forEach { item in
+        [logo, ago, summary, source, title, articleImageView, favoriteButton].forEach { item in
             contentView.addSubviewForAutoLayout(item)
         }
 
@@ -36,7 +36,7 @@ class FlipboardCell: NewsCell {
 
             title.topAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: 18),
             title.leadingAnchor.constraint(equalTo: articleImageView.leadingAnchor),
-            title.trailingAnchor.constraint(equalTo: articleImageView.trailingAnchor),
+            title.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             summary.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 12),
             summary.leadingAnchor.constraint(equalTo: articleImageView.leadingAnchor),
@@ -53,7 +53,13 @@ class FlipboardCell: NewsCell {
             ago.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 22),
             ago.leadingAnchor.constraint(equalTo: articleImageView.leadingAnchor),
 
-            contentView.bottomAnchor.constraint(equalTo: ago.bottomAnchor, constant: 30)
+            contentView.bottomAnchor.constraint(equalTo: ago.bottomAnchor, constant: 30),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: title.topAnchor),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
 
     }

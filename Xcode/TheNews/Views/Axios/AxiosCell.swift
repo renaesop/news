@@ -25,7 +25,7 @@ class AxiosCell: NewsCell {
         ago.textColor = .secondaryLabel
         ago.font = .preferredFont(forTextStyle: .subheadline)
 
-        [logo, title, author, ago, articleImageView, summary].forEach {
+        [logo, title, author, ago, articleImageView, summary, favoriteButton].forEach {
             contentView.addSubviewForAutoLayout($0)
         }
 
@@ -39,7 +39,7 @@ class AxiosCell: NewsCell {
 
             author.topAnchor.constraint(equalTo: logo.topAnchor, constant: 2),
             author.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 50),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: author.trailingAnchor),
+            author.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             ago.topAnchor.constraint(equalTo: author.bottomAnchor, constant: 2),
             ago.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: 50),
@@ -47,7 +47,7 @@ class AxiosCell: NewsCell {
 
             title.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: inset + 10),
             title.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: title.trailingAnchor),
+            title.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             articleImageView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: inset + 10),
             articleImageView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
@@ -58,7 +58,13 @@ class AxiosCell: NewsCell {
             summary.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
             contentView.readableContentGuide.trailingAnchor.constraint(equalTo: summary.trailingAnchor),
 
-            contentView.bottomAnchor.constraint(equalTo: summary.bottomAnchor, constant: inset)
+            contentView.bottomAnchor.constraint(equalTo: summary.bottomAnchor, constant: inset),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
 
     }

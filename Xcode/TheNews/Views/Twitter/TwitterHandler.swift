@@ -15,6 +15,7 @@ class TwitterHandler: NewsTableHandler {
 
         let article = articles[indexPath.row]
         cell.load(article: article, downloader: ImageDownloader.shared)
+        cell.configureFavoriteButton(for: article, in: tableView, at: indexPath)
 
         return cell
     }

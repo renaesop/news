@@ -25,7 +25,7 @@ class FastNewsCell: NewsCell {
 
         source.font = .preferredFont(forTextStyle: .caption1)
 
-        [logo, ago, summary, source, title].forEach { item in
+        [logo, ago, summary, source, title, favoriteButton].forEach { item in
             contentView.addSubviewForAutoLayout(item)
         }
 
@@ -40,6 +40,7 @@ class FastNewsCell: NewsCell {
 
             title.topAnchor.constraint(equalTo: ago.bottomAnchor, constant: 10),
             title.leadingAnchor.constraint(equalTo: ago.leadingAnchor),
+            title.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
             logo.leadingAnchor.constraint(equalTo: title.trailingAnchor, constant: 20),
 
             summary.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 5),
@@ -49,7 +50,13 @@ class FastNewsCell: NewsCell {
             source.leadingAnchor.constraint(equalTo: ago.leadingAnchor),
             source.topAnchor.constraint(equalTo: summary.bottomAnchor, constant: 5),
 
-            contentView.bottomAnchor.constraint(equalTo: source.bottomAnchor, constant: 20)
+            contentView.bottomAnchor.constraint(equalTo: source.bottomAnchor, constant: 20),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
 
     }

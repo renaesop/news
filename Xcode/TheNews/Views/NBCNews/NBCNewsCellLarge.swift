@@ -23,7 +23,7 @@ class NBCNewsCellLarge: NewsCell {
         
         source.font = UIFont.monospacedSystemFont(ofSize: 14, weight: .regular)
 
-        [articleImageView, title, summary, source].forEach {
+        [articleImageView, title, summary, source, favoriteButton].forEach {
             contentView.addSubviewForAutoLayout($0)
         }
 
@@ -31,10 +31,11 @@ class NBCNewsCellLarge: NewsCell {
         NSLayoutConstraint.activate([
             source.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
             source.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
+            source.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
             
             title.topAnchor.constraint(equalTo: source.bottomAnchor, constant: 8),
             title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
-            contentView.trailingAnchor.constraint(equalTo: title.trailingAnchor, constant: inset),
+            title.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
             
             summary.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10),
             summary.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
@@ -45,7 +46,13 @@ class NBCNewsCellLarge: NewsCell {
             contentView.trailingAnchor.constraint(equalTo: articleImageView.trailingAnchor, constant: inset),
             articleImageView.heightAnchor.constraint(equalToConstant: 170),
             
-            contentView.bottomAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: inset)
+            contentView.bottomAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: inset),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
 
     }

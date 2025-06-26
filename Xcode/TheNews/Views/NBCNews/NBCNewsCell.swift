@@ -20,7 +20,7 @@ class NBCNewsCell: NewsCell {
         title.font = UIFont(name: "HelveticaNeue-CondensedBold", size: 18)
         title.numberOfLines = 3
 
-        [articleImageView, source, title].forEach { item in
+        [articleImageView, source, title, favoriteButton].forEach { item in
             contentView.addSubviewForAutoLayout(item)
         }
 
@@ -33,12 +33,19 @@ class NBCNewsCell: NewsCell {
 
             source.leadingAnchor.constraint(equalTo: articleImageView.trailingAnchor, constant: 10),
             source.topAnchor.constraint(equalTo: articleImageView.topAnchor),
+            source.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             title.leadingAnchor.constraint(equalTo: articleImageView.trailingAnchor, constant: 10),
             title.topAnchor.constraint(equalTo: source.bottomAnchor, constant: 6),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: title.trailingAnchor),
+            title.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
-            contentView.bottomAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: inset)
+            contentView.bottomAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: inset),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
 

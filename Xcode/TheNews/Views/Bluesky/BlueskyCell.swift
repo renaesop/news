@@ -30,7 +30,7 @@ class BlueskyCell: NewsCell {
                 
         title.font = .preferredFont(forTextStyle: .headline)
       
-        [logo, author, ago, summary, container].forEach {
+        [logo, author, ago, summary, container, favoriteButton].forEach {
             contentView.addSubviewForAutoLayout($0)
         }
 
@@ -44,20 +44,26 @@ class BlueskyCell: NewsCell {
 
             author.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
             author.leadingAnchor.constraint(equalTo: logo.trailingAnchor, constant: inset),
+            author.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
             
             ago.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
             ago.leadingAnchor.constraint(equalTo: author.trailingAnchor, constant: 8),
-            contentView.trailingAnchor.constraint(equalTo: ago.trailingAnchor, constant: inset + 8),
             
             summary.topAnchor.constraint(equalTo: ago.bottomAnchor, constant: inset - 5),
             summary.leadingAnchor.constraint(equalTo: logo.trailingAnchor, constant: inset),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: summary.trailingAnchor),
+            summary.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
             
             container.topAnchor.constraint(equalTo: summary.bottomAnchor, constant: inset),
             container.leadingAnchor.constraint(equalTo: logo.trailingAnchor, constant: inset),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            container.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
             
-            contentView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: inset + 5)
+            contentView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: inset + 5),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset + 5),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
         
         let separatorView = UIView()

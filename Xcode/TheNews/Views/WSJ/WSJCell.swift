@@ -22,7 +22,7 @@ class WSJCell: NewsCell {
         ago.font = source.font
         ago.textColor = .systemGray
 
-        [source, articleImageView, title, summary, ago].forEach { item in
+        [source, articleImageView, title, summary, ago, favoriteButton].forEach { item in
             contentView.addSubviewForAutoLayout(item)
         }
 
@@ -31,6 +31,7 @@ class WSJCell: NewsCell {
         NSLayoutConstraint.activate([
             source.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
             source.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: inset),
+            source.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             articleImageView.topAnchor.constraint(equalTo: source.bottomAnchor, constant: inset),
             articleImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -39,7 +40,7 @@ class WSJCell: NewsCell {
 
             title.topAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: inset),
             title.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: title.trailingAnchor),
+            title.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             summary.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 8),
             summary.leadingAnchor.constraint(equalTo: title.leadingAnchor),
@@ -48,7 +49,13 @@ class WSJCell: NewsCell {
             ago.topAnchor.constraint(equalTo: summary.bottomAnchor, constant: 20),
             ago.leadingAnchor.constraint(equalTo: title.leadingAnchor),
 
-            contentView.bottomAnchor.constraint(equalTo: ago.bottomAnchor, constant: 30)
+            contentView.bottomAnchor.constraint(equalTo: ago.bottomAnchor, constant: 30),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -inset),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
 
     }

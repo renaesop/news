@@ -21,6 +21,7 @@ class ParticleCell: NewsCell {
         cardView.layer.cornerRadius = 12
         cardView.clipsToBounds = true
         contentView.addSubviewForAutoLayout(cardView)
+        contentView.addSubviewForAutoLayout(favoriteButton)
         
         let inset: CGFloat = 15
         
@@ -28,7 +29,13 @@ class ParticleCell: NewsCell {
             cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
             cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -inset),
             cardView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: cardView.trailingAnchor)
+            cardView.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
         
         let banner = UIView()

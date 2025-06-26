@@ -17,7 +17,7 @@ class WashingtonPostCell: NewsCell {
 
         source.font = UIFont(name: "AppleSDGothicNeo-UltraLight", size: 14)
 
-        [title, summary, articleImageView, source].forEach {
+        [title, summary, articleImageView, source, favoriteButton].forEach {
             contentView.addSubviewForAutoLayout($0)
         }
 
@@ -26,7 +26,7 @@ class WashingtonPostCell: NewsCell {
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
             title.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: inset),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: title.trailingAnchor, constant: inset),
+            title.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             summary.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10),
             summary.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor, constant: inset),
@@ -40,7 +40,13 @@ class WashingtonPostCell: NewsCell {
             contentView.readableContentGuide.trailingAnchor.constraint(equalTo: articleImageView.trailingAnchor, constant: inset),
             articleImageView.heightAnchor.constraint(equalToConstant: imageHeight),
             
-            contentView.bottomAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: inset)
+            contentView.bottomAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: inset),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor, constant: -inset),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
 

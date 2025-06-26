@@ -17,7 +17,7 @@ class AppleNewsCellStacked: NewsCell {
     override func config() {
         super.config()
 
-        [stackLeft, stackRight].forEach {
+        [stackLeft, stackRight, favoriteButton].forEach {
             contentView.addSubviewForAutoLayout($0)
         }
 
@@ -27,13 +27,19 @@ class AppleNewsCellStacked: NewsCell {
             stackLeft.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
 
             stackRight.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: stackRight.trailingAnchor),
+            stackRight.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
             stackRight.leadingAnchor.constraint(equalTo: stackLeft.trailingAnchor, constant: 26),
 
             contentView.bottomAnchor.constraint(equalTo: stackLeft.bottomAnchor, constant: inset),
             contentView.bottomAnchor.constraint(equalTo: stackRight.bottomAnchor, constant: inset),
 
-            stackLeft.widthAnchor.constraint(equalTo: stackRight.widthAnchor)
+            stackLeft.widthAnchor.constraint(equalTo: stackRight.widthAnchor),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
 

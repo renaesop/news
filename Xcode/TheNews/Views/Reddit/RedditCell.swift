@@ -27,7 +27,7 @@ class RedditCell: NewsCell {
         logo.layer.cornerRadius = RedditCell.logoSize.width / 2
         logo.layer.masksToBounds = true
 
-        [logo, source, title, articleImageView, summary].forEach {
+        [logo, source, title, articleImageView, summary, favoriteButton].forEach {
             contentView.addSubviewForAutoLayout($0)
         }
 
@@ -39,6 +39,7 @@ class RedditCell: NewsCell {
 
             source.topAnchor.constraint(equalTo: logo.topAnchor, constant: -1),
             source.leadingAnchor.constraint(equalTo: logo.trailingAnchor, constant: 10),
+            source.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             title.leadingAnchor.constraint(equalTo: logo.leadingAnchor),
             articleImageView.leadingAnchor.constraint(equalTo: title.trailingAnchor, constant: 15),
@@ -54,7 +55,13 @@ class RedditCell: NewsCell {
             contentView.readableContentGuide.trailingAnchor.constraint(equalTo: summary.trailingAnchor),
             summary.topAnchor.constraint(equalTo: title.bottomAnchor),
 
-            contentView.bottomAnchor.constraint(equalTo: summary.bottomAnchor, constant: 15)
+            contentView.bottomAnchor.constraint(equalTo: summary.bottomAnchor, constant: 15),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
 

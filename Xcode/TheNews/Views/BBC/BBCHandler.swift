@@ -15,6 +15,7 @@ class BBCHandler: NewsTableHandler {
 
         let article = articles[indexPath.row]
         cell.load(article: article, row: indexPath.row)
+        cell.configureFavoriteButton(for: article, in: tableView, at: indexPath)
 
         return cell
     }

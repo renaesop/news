@@ -28,7 +28,7 @@ class AppleNewsCellLarge: NewsCell {
         ago.font = .boldSystemFont(ofSize: 12)
         ago.textColor = .secondaryLabel
 
-        [articleImageView, logo, source, title, ago].forEach {
+        [articleImageView, logo, source, title, ago, favoriteButton].forEach {
             contentView.addSubviewForAutoLayout($0)
         }
 
@@ -50,12 +50,18 @@ class AppleNewsCellLarge: NewsCell {
 
             title.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 10),
             title.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: title.trailingAnchor),
+            title.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             ago.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 8),
             ago.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
 
-            contentView.bottomAnchor.constraint(equalTo: ago.bottomAnchor, constant: inset)
+            contentView.bottomAnchor.constraint(equalTo: ago.bottomAnchor, constant: inset),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: title.topAnchor),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
 
     }

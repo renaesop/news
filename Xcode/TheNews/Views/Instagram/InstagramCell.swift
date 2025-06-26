@@ -25,7 +25,7 @@ class InstagramCell: NewsCell {
         logo.layer.cornerRadius = InstagramCell.logoSize.width / 2
         logo.layer.masksToBounds = true
 
-        [logo, source, title, articleImageView, ago].forEach { item in
+        [logo, source, title, articleImageView, ago, favoriteButton].forEach { item in
             contentView.addSubviewForAutoLayout(item)
         }
 
@@ -39,6 +39,7 @@ class InstagramCell: NewsCell {
 
             source.centerYAnchor.constraint(equalTo: logo.centerYAnchor),
             source.leadingAnchor.constraint(equalTo: logo.trailingAnchor, constant: inset),
+            source.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             articleImageView.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 10),
             articleImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -47,12 +48,18 @@ class InstagramCell: NewsCell {
 
             title.topAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: 10),
             title.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: title.trailingAnchor),
+            title.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             ago.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 6),
             ago.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
 
-            contentView.bottomAnchor.constraint(equalTo: ago.bottomAnchor, constant: 25)
+            contentView.bottomAnchor.constraint(equalTo: ago.bottomAnchor, constant: 25),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
 
     }

@@ -19,7 +19,7 @@ class TwitterCell: NewsCell {
         logo.layer.cornerRadius = TwitterCell.logoSize.width / 2
         logo.layer.masksToBounds = true
 
-        [logo, source, articleImageView, title].forEach { item in
+        [logo, source, articleImageView, title, favoriteButton].forEach { item in
             contentView.addSubviewForAutoLayout(item)
         }
 
@@ -33,18 +33,24 @@ class TwitterCell: NewsCell {
 
             source.topAnchor.constraint(equalTo: contentView.topAnchor, constant: inset),
             source.leadingAnchor.constraint(equalTo: logo.trailingAnchor, constant: inset),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: source.trailingAnchor),
+            source.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             title.topAnchor.constraint(equalTo: source.bottomAnchor, constant: 2),
             title.leadingAnchor.constraint(equalTo: logo.trailingAnchor, constant: inset),
-            contentView.readableContentGuide.trailingAnchor.constraint(equalTo: title.trailingAnchor),
+            title.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
 
             articleImageView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: inset),
             articleImageView.leadingAnchor.constraint(equalTo: logo.trailingAnchor, constant: inset),
             contentView.readableContentGuide.trailingAnchor.constraint(equalTo: articleImageView.trailingAnchor),
             articleImageView.heightAnchor.constraint(equalToConstant: imageHeight),
 
-            contentView.bottomAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: 15)
+            contentView.bottomAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: 15),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
 

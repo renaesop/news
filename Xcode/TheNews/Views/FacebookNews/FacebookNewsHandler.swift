@@ -16,6 +16,7 @@ class FacebookNewsHandler: NewsTableHandler {
 
         let article = articles[indexPath.row]
         cell.load(article: article)
+        cell.configureFavoriteButton(for: article, in: tableView, at: indexPath)
 
         return cell
     }

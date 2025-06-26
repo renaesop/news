@@ -41,18 +41,25 @@ class TapestryCell: NewsCell {
         
         contentView.addSubviewForAutoLayout(containerView)
         contentView.addSubviewForAutoLayout(logo)
+        contentView.addSubviewForAutoLayout(favoriteButton)
       
         NSLayoutConstraint.activate([
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
 
             containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
-            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            containerView.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
             
             logo.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
             logo.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             logo.heightAnchor.constraint(equalToConstant: TapestryCell.logoSize.height),
             logo.widthAnchor.constraint(equalToConstant: TapestryCell.logoSize.width),
+            
+            // Favorite button constraints
+            favoriteButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            favoriteButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44),
         ])
         
         let stripe = UIView()

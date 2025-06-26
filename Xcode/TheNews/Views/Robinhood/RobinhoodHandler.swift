@@ -41,11 +41,13 @@ class RobinhoodHandler: NewsTableHandler {
             let cell = tableView.dequeueReusableCell(withIdentifier: RobinhoodCellLarge.identifier) as! RobinhoodCellLarge
             let article = itemsTop[indexPath.row]
             cell.load(article.rh)
+            cell.configureFavoriteButton(for: article, in: tableView, at: indexPath)
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: RobinhoodCell.identifier) as! RobinhoodCell
             let article = items[indexPath.row]
             cell.load(article.rh)
+            cell.configureFavoriteButton(for: article, in: tableView, at: indexPath)
             return cell
         }
     }

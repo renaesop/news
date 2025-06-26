@@ -15,6 +15,7 @@ class LilNewsHandler: NewsCollectionHandler {
 
         let article = items[indexPath.row]
         cell.load(article: article, downloader: ImageDownloader.shared)
+        cell.configureFavoriteButton(for: article, in: collectionView, at: indexPath)
 
         return cell
     }
