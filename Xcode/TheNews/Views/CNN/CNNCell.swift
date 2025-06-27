@@ -19,7 +19,7 @@ class CNNCell: NewsCell {
         ago.textColor = .secondaryLabel
         ago.font = .preferredFont(forTextStyle: .caption1)
 
-        [articleImageView, summary, ago, favoriteButton].forEach { item in
+        [articleImageView, summary, ago, favoriteButton, dislikeButton].forEach { item in
             contentView.addSubviewForAutoLayout(item)
         }
 
@@ -33,7 +33,7 @@ class CNNCell: NewsCell {
 
             summary.topAnchor.constraint(equalTo: articleImageView.bottomAnchor, constant: inset),
             summary.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor ),
-            summary.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
+            summary.trailingAnchor.constraint(equalTo: dislikeButton.leadingAnchor, constant: -8),
 
             ago.topAnchor.constraint(equalTo: summary.bottomAnchor, constant: inset),
             ago.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
@@ -44,7 +44,13 @@ class CNNCell: NewsCell {
             favoriteButton.topAnchor.constraint(equalTo: summary.topAnchor),
             favoriteButton.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
             favoriteButton.widthAnchor.constraint(equalToConstant: 44),
-            favoriteButton.heightAnchor.constraint(equalToConstant: 44)
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44),
+            
+            // Dislike button constraints
+            dislikeButton.topAnchor.constraint(equalTo: summary.topAnchor),
+            dislikeButton.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
+            dislikeButton.widthAnchor.constraint(equalToConstant: 44),
+            dislikeButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
 

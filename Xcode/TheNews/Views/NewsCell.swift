@@ -16,6 +16,9 @@ class NewsCell: UITableViewCell {
     
     var favoriteButton = UIButton(type: .system)
     var favoriteAction: (() -> Void)?
+    
+    var dislikeButton = UIButton(type: .system)
+    var dislikeAction: (() -> Void)?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
@@ -46,15 +49,28 @@ class NewsCell: UITableViewCell {
         // Configure favorite button
         favoriteButton.tintColor = .systemRed
         favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+        
+        // Configure dislike button
+        dislikeButton.tintColor = .systemGray
+        dislikeButton.addTarget(self, action: #selector(dislikeButtonTapped), for: .touchUpInside)
     }
     
     @objc private func favoriteButtonTapped() {
         favoriteAction?()
     }
     
+    @objc private func dislikeButtonTapped() {
+        dislikeAction?()
+    }
+    
     func updateFavoriteButton(isFavorite: Bool) {
         let imageName = isFavorite ? "heart.fill" : "heart"
         favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
+    }
+    
+    func updateDislikeButton(isDisliked: Bool) {
+        let imageName = isDisliked ? "hand.thumbsdown.fill" : "hand.thumbsdown"
+        dislikeButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
 
     func load(urlString: String?,
@@ -98,16 +114,30 @@ class NewsCell: UITableViewCell {
 extension NewsCell {
     func configureFavoriteButton(for article: Article, in tableView: UITableView, at indexPath: IndexPath) {
         self.updateFavoriteButton(isFavorite: FavoritesManager.shared.isFavorite(article))
+        self.updateDislikeButton(isDisliked: FavoritesManager.shared.isDisliked(article))
+        
         self.favoriteAction = { [weak tableView] in
             FavoritesManager.shared.toggleFavorite(article)
+            tableView?.reloadRows(at: [indexPath], with: .none)
+        }
+        
+        self.dislikeAction = { [weak tableView] in
+            FavoritesManager.shared.toggleDislike(article)
             tableView?.reloadRows(at: [indexPath], with: .none)
         }
     }
     
     func configureFavoriteButton(for article: Article, in collectionView: UICollectionView, at indexPath: IndexPath) {
         self.updateFavoriteButton(isFavorite: FavoritesManager.shared.isFavorite(article))
+        self.updateDislikeButton(isDisliked: FavoritesManager.shared.isDisliked(article))
+        
         self.favoriteAction = { [weak collectionView] in
             FavoritesManager.shared.toggleFavorite(article)
+            collectionView?.reloadItems(at: [indexPath])
+        }
+        
+        self.dislikeAction = { [weak collectionView] in
+            FavoritesManager.shared.toggleDislike(article)
             collectionView?.reloadItems(at: [indexPath])
         }
     }
