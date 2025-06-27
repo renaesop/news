@@ -59,7 +59,7 @@ class ArticleDetailViewController: UIViewController {
         
         // Update gradient mask frame
         if let gradientLayer = gradientLayer {
-            gradientLayer.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 120)
+            gradientLayer.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 80)
         }
     }
     
@@ -128,7 +128,7 @@ class ArticleDetailViewController: UIViewController {
             blurEffectView.topAnchor.constraint(equalTo: view.topAnchor),
             blurEffectView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             blurEffectView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            blurEffectView.heightAnchor.constraint(equalToConstant: 120),
+            blurEffectView.heightAnchor.constraint(equalToConstant: 80),
             
             // Progress view
             progressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -137,7 +137,7 @@ class ArticleDetailViewController: UIViewController {
             progressView.heightAnchor.constraint(equalToConstant: 2),
             
             // Back button
-            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             backButton.widthAnchor.constraint(equalToConstant: 40),
             backButton.heightAnchor.constraint(equalToConstant: 40),
@@ -149,7 +149,7 @@ class ArticleDetailViewController: UIViewController {
             sourceLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 80),
             
             // Favorite button
-            favoriteButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            favoriteButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             favoriteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             favoriteButton.widthAnchor.constraint(equalToConstant: 40),
             favoriteButton.heightAnchor.constraint(equalToConstant: 40)
