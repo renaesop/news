@@ -16,6 +16,8 @@ class ArticleDetailViewController: UIViewController {
     private var backButton: UIButton!
     private var sourceLabel: UILabel!
     private var favoriteButton: UIButton!
+    private var blurEffectView: UIVisualEffectView!
+    private var gradientLayer: CAGradientLayer!
     
     init(article: Article) {
         self.article = article
@@ -52,6 +54,15 @@ class ArticleDetailViewController: UIViewController {
         return .lightContent
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // Update gradient mask frame
+        if let gradientLayer = gradientLayer {
+            gradientLayer.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 120)
+        }
+    }
+    
     private func setupWebView() {
         let webConfiguration = WKWebViewConfiguration()
         webConfiguration.allowsInlineMediaPlayback = true
@@ -73,6 +84,11 @@ class ArticleDetailViewController: UIViewController {
     }
     
     private func setupOverlayElements() {
+        // Blur effect view for top area
+        let blurEffect = UIBlurEffect(style: .systemMaterialDark)
+        blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+        
         // Progress view
         progressView = UIProgressView(progressViewStyle: .bar)
         progressView.translatesAutoresizingMaskIntoConstraints = false
@@ -82,9 +98,7 @@ class ArticleDetailViewController: UIViewController {
         // Back button
         backButton = UIButton(type: .system)
         backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
-        backButton.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         backButton.tintColor = .white
-        backButton.layer.cornerRadius = 20
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         
@@ -93,27 +107,29 @@ class ArticleDetailViewController: UIViewController {
         sourceLabel.text = article.source?.name?.uppercased()
         sourceLabel.font = .boldSystemFont(ofSize: 14)
         sourceLabel.textColor = .white
-        sourceLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         sourceLabel.textAlignment = .center
-        sourceLabel.layer.cornerRadius = 12
-        sourceLabel.clipsToBounds = true
         sourceLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // Favorite button
         favoriteButton = UIButton(type: .system)
-        favoriteButton.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         favoriteButton.tintColor = .white
-        favoriteButton.layer.cornerRadius = 20
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         updateFavoriteButton()
         
+        view.addSubview(blurEffectView)
         view.addSubview(progressView)
         view.addSubview(backButton)
         view.addSubview(sourceLabel)
         view.addSubview(favoriteButton)
         
         NSLayoutConstraint.activate([
+            // Blur effect view - covers top area with gradient fade
+            blurEffectView.topAnchor.constraint(equalTo: view.topAnchor),
+            blurEffectView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            blurEffectView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            blurEffectView.heightAnchor.constraint(equalToConstant: 120),
+            
             // Progress view
             progressView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             progressView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -138,6 +154,16 @@ class ArticleDetailViewController: UIViewController {
             favoriteButton.widthAnchor.constraint(equalToConstant: 40),
             favoriteButton.heightAnchor.constraint(equalToConstant: 40)
         ])
+        
+        // Add gradient mask to blur effect for fade out effect
+        gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [
+            UIColor.black.cgColor,
+            UIColor.black.cgColor,
+            UIColor.clear.cgColor
+        ]
+        gradientLayer.locations = [0.0, 0.7, 1.0]
+        blurEffectView.layer.mask = gradientLayer
         
         // Add padding to source label
         sourceLabel.layoutMargins = UIEdgeInsets(top: 4, left: 12, bottom: 4, right: 12)
