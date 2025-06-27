@@ -37,6 +37,7 @@
 		650D8DC5258D5C95006FFC70 /* ApolloHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650D8DC4258D5C95006FFC70 /* ApolloHandler.swift */; };
 		65215EDF24438F08008B4D5A /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65215EDE24438F08008B4D5A /* ImageDownloader.swift */; };
 		65293A45244172F2002E5BC3 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65293A44244172F2002E5BC3 /* NewsViewController.swift */; };
+		E1F2A3B92D8A1C3D00123459 /* ArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2A3B82D8A1C3D00123458 /* ArticleDetailViewController.swift */; };
 		65580A90258EDA8E00D1287F /* AppleNewsCellStacked.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65580A8F258EDA8E00D1287F /* AppleNewsCellStacked.swift */; };
 		65580AA525904AE800D1287F /* AxiosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65580AA425904AE800D1287F /* AxiosCell.swift */; };
 		65580AB925904C9000D1287F /* AxiosHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65580AB825904C9000D1287F /* AxiosHandler.swift */; };
@@ -169,6 +170,7 @@
 		650D8DC4258D5C95006FFC70 /* ApolloHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApolloHandler.swift; sourceTree = "<group>"; };
 		65215EDE24438F08008B4D5A /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		65293A44244172F2002E5BC3 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		E1F2A3B82D8A1C3D00123458 /* ArticleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewController.swift; sourceTree = "<group>"; };
 		65580A8F258EDA8E00D1287F /* AppleNewsCellStacked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleNewsCellStacked.swift; sourceTree = "<group>"; };
 		65580AA425904AE800D1287F /* AxiosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxiosCell.swift; sourceTree = "<group>"; };
 		65580AB825904C9000D1287F /* AxiosHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxiosHandler.swift; sourceTree = "<group>"; };
@@ -425,6 +427,7 @@
 			children = (
 				6560AE5E24411C4C00581008 /* Info.plist */,
 				6560AE5024411C4A00581008 /* AppDelegate.swift */,
+				E1F2A3B82D8A1C3D00123458 /* ArticleDetailViewController.swift */,
 				65C383992587255A008F1411 /* Extension.swift */,
 				E1F2A3B32D8A1C3D00123456 /* FavoritesManager.swift */,
 				E1F2A3B52D8A1C3D00123457 /* FavoritesViewController.swift */,
@@ -848,6 +851,7 @@
 				657B6584277C1403002C955A /* RobinhoodCellLarge.swift in Sources */,
 				6507853A2587038F001ABDAE /* BBCCell.swift in Sources */,
 				65293A45244172F2002E5BC3 /* NewsViewController.swift in Sources */,
+				E1F2A3B92D8A1C3D00123459 /* ArticleDetailViewController.swift in Sources */,
 				65D47D9D25941149009701BB /* FacebookNewsCell.swift in Sources */,
 				D7BC21C92D726BE10050836A /* TapestryHandler.swift in Sources */,
 				650D8DBB258D5C7F006FFC70 /* ApolloCell.swift in Sources */,
