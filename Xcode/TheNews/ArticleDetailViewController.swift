@@ -16,6 +16,7 @@ class ArticleDetailViewController: UIViewController {
     private var backButton: UIButton!
     private var sourceLabel: UILabel!
     private var favoriteButton: UIButton!
+    private var dislikeButton: UIButton!
     
     init(article: Article) {
         self.article = article
@@ -123,10 +124,25 @@ class ArticleDetailViewController: UIViewController {
         favoriteButton.layer.shadowRadius = 2
         favoriteButton.layer.masksToBounds = false
         
+        // Dislike button with text shadow
+        dislikeButton = UIButton(type: .system)
+        dislikeButton.tintColor = .white
+        dislikeButton.translatesAutoresizingMaskIntoConstraints = false
+        dislikeButton.addTarget(self, action: #selector(dislikeButtonTapped), for: .touchUpInside)
+        updateDislikeButton()
+        
+        // Add text shadow effect
+        dislikeButton.layer.shadowColor = UIColor.black.cgColor
+        dislikeButton.layer.shadowOffset = CGSize(width: 0, height: 1)
+        dislikeButton.layer.shadowOpacity = 0.8
+        dislikeButton.layer.shadowRadius = 2
+        dislikeButton.layer.masksToBounds = false
+        
         view.addSubview(progressView)
         view.addSubview(backButton)
         view.addSubview(sourceLabel)
         view.addSubview(favoriteButton)
+        view.addSubview(dislikeButton)
         
         NSLayoutConstraint.activate([
             // Progress view
@@ -151,7 +167,13 @@ class ArticleDetailViewController: UIViewController {
             favoriteButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             favoriteButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             favoriteButton.widthAnchor.constraint(equalToConstant: 40),
-            favoriteButton.heightAnchor.constraint(equalToConstant: 40)
+            favoriteButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            // Dislike button (next to favorite button)
+            dislikeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            dislikeButton.trailingAnchor.constraint(equalTo: favoriteButton.leadingAnchor, constant: -8),
+            dislikeButton.widthAnchor.constraint(equalToConstant: 40),
+            dislikeButton.heightAnchor.constraint(equalToConstant: 40)
         ])
         
         // Add padding to source label
@@ -174,6 +196,12 @@ class ArticleDetailViewController: UIViewController {
         favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
     
+    private func updateDislikeButton() {
+        let isDisliked = FavoritesManager.shared.isDisliked(article)
+        let imageName = isDisliked ? "hand.thumbsdown.fill" : "hand.thumbsdown"
+        dislikeButton.setImage(UIImage(systemName: imageName), for: .normal)
+    }
+    
     @objc private func backButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
@@ -181,6 +209,17 @@ class ArticleDetailViewController: UIViewController {
     @objc private func favoriteButtonTapped() {
         FavoritesManager.shared.toggleFavorite(article)
         updateFavoriteButton()
+        updateDislikeButton() // Update dislike button since they're mutually exclusive
+        
+        // Add haptic feedback
+        let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
+        impactFeedback.impactOccurred()
+    }
+    
+    @objc private func dislikeButtonTapped() {
+        FavoritesManager.shared.toggleDislike(article)
+        updateDislikeButton()
+        updateFavoriteButton() // Update favorite button since they're mutually exclusive
         
         // Add haptic feedback
         let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
