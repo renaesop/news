@@ -16,9 +16,14 @@ class ArticleDetailViewController: UIViewController {
     private var backButton: UIButton!
     private var sourceLabel: UILabel!
     private var favoriteButton: UIButton!
+    private var titleLabel: UILabel!
+    private var topContainer: UIView!
+    private var bottomContainer: UIView!
+    private var isCNNArticle: Bool
     
     init(article: Article) {
         self.article = article
+        self.isCNNArticle = article.source?.name?.lowercased().contains("cnn") ?? false
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -30,7 +35,11 @@ class ArticleDetailViewController: UIViewController {
         super.viewDidLoad()
         
         setupWebView()
-        setupOverlayElements()
+        if isCNNArticle {
+            setupCNNLayout()
+        } else {
+            setupOverlayElements()
+        }
         loadArticle()
         
         // Hide navigation bar for immersive experience
@@ -64,11 +73,122 @@ class ArticleDetailViewController: UIViewController {
         
         view.addSubview(webView)
         
+        if isCNNArticle {
+            // WebView constraints will be set in setupCNNLayout
+        } else {
+            NSLayoutConstraint.activate([
+                webView.topAnchor.constraint(equalTo: view.topAnchor),
+                webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
+        }
+    }
+    
+    private func setupCNNLayout() {
+        view.backgroundColor = .systemBackground
+        
+        // Top container with back button and title
+        topContainer = UIView()
+        topContainer.backgroundColor = .systemBackground
+        topContainer.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Back button
+        backButton = UIButton(type: .system)
+        backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
+        backButton.tintColor = .label
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        
+        // Title label
+        titleLabel = UILabel()
+        titleLabel.text = article.titleDisplay
+        titleLabel.font = .boldSystemFont(ofSize: 18)
+        titleLabel.textColor = .label
+        titleLabel.numberOfLines = 2
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Bottom container with source and favorite button
+        bottomContainer = UIView()
+        bottomContainer.backgroundColor = .systemBackground
+        bottomContainer.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Source label
+        sourceLabel = UILabel()
+        sourceLabel.text = article.source?.name?.uppercased()
+        sourceLabel.font = .systemFont(ofSize: 14)
+        sourceLabel.textColor = .secondaryLabel
+        sourceLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Favorite button
+        favoriteButton = UIButton(type: .system)
+        favoriteButton.tintColor = .systemRed
+        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+        updateFavoriteButton()
+        
+        // Progress view
+        progressView = UIProgressView(progressViewStyle: .bar)
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.progressTintColor = .systemBlue
+        progressView.isHidden = true
+        
+        // Add subviews
+        view.addSubview(topContainer)
+        view.addSubview(bottomContainer)
+        view.addSubview(progressView)
+        
+        topContainer.addSubview(backButton)
+        topContainer.addSubview(titleLabel)
+        bottomContainer.addSubview(sourceLabel)
+        bottomContainer.addSubview(favoriteButton)
+        
+        // Setup constraints
         NSLayoutConstraint.activate([
-            webView.topAnchor.constraint(equalTo: view.topAnchor),
+            // Top container
+            topContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            topContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            topContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            topContainer.heightAnchor.constraint(equalToConstant: 80),
+            
+            // Back button
+            backButton.leadingAnchor.constraint(equalTo: topContainer.leadingAnchor, constant: 16),
+            backButton.centerYAnchor.constraint(equalTo: topContainer.centerYAnchor),
+            backButton.widthAnchor.constraint(equalToConstant: 44),
+            backButton.heightAnchor.constraint(equalToConstant: 44),
+            
+            // Title label
+            titleLabel.leadingAnchor.constraint(equalTo: backButton.trailingAnchor, constant: 12),
+            titleLabel.trailingAnchor.constraint(equalTo: topContainer.trailingAnchor, constant: -16),
+            titleLabel.centerYAnchor.constraint(equalTo: topContainer.centerYAnchor),
+            
+            // Bottom container
+            bottomContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bottomContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            bottomContainer.heightAnchor.constraint(equalToConstant: 60),
+            
+            // Source label
+            sourceLabel.leadingAnchor.constraint(equalTo: bottomContainer.leadingAnchor, constant: 16),
+            sourceLabel.centerYAnchor.constraint(equalTo: bottomContainer.centerYAnchor),
+            
+            // Favorite button
+            favoriteButton.trailingAnchor.constraint(equalTo: bottomContainer.trailingAnchor, constant: -16),
+            favoriteButton.centerYAnchor.constraint(equalTo: bottomContainer.centerYAnchor),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 44),
+            
+            // WebView
+            webView.topAnchor.constraint(equalTo: topContainer.bottomAnchor),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            webView.bottomAnchor.constraint(equalTo: bottomContainer.topAnchor),
+            
+            // Progress view
+            progressView.topAnchor.constraint(equalTo: topContainer.bottomAnchor),
+            progressView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            progressView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            progressView.heightAnchor.constraint(equalToConstant: 2)
         ])
     }
     
