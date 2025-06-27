@@ -108,5 +108,15 @@ extension UIView {
         gradientLayer.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
         self.layer.insertSublayer(gradientLayer, at: index)
     }
+    
+    func findViewController() -> UIViewController? {
+        if let nextResponder = self.next as? UIViewController {
+            return nextResponder
+        } else if let nextResponder = self.next as? UIView {
+            return nextResponder.findViewController()
+        } else {
+            return nil
+        }
+    }
 
 }
