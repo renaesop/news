@@ -3,7 +3,6 @@
 //
 
 import UIKit
-import SafariServices
 
 class CNNHandler: NewsTableHandler {
 
@@ -21,15 +20,5 @@ class CNNHandler: NewsTableHandler {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = articles[indexPath.row]
-        guard let url = item.url else { return }
-        
-        let safariViewController = SFSafariViewController(url: url)
-        
-        if let viewController = tableView.findViewController() {
-            viewController.present(safariViewController, animated: true)
-        }
-    }
 
 }

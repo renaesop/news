@@ -174,9 +174,10 @@ extension FavoritesViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let article = favorites[indexPath.row]
-        if let url = article.url {
-            UIApplication.shared.open(url)
-        }
+        guard article.url != nil else { return }
+        
+        let detailViewController = ArticleDetailViewController(article: article)
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

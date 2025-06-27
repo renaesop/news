@@ -17,10 +17,14 @@ class NewsCollectionHandler: NSObject, UICollectionViewDataSource, UICollectionV
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = items[indexPath.row]
-        guard let url = item.url else { return }
-
-        UIApplication.shared.open(url)
+        let article = items[indexPath.row]
+        guard article.url != nil else { return }
+        
+        let detailViewController = ArticleDetailViewController(article: article)
+        
+        if let viewController = collectionView.findViewController() {
+            viewController.navigationController?.pushViewController(detailViewController, animated: true)
+        }
     }
 
 }

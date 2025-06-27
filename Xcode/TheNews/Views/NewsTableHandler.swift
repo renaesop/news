@@ -17,10 +17,14 @@ class NewsTableHandler: NSObject, UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = articles[indexPath.row]
-        guard let url = item.url else { return }
-
-        UIApplication.shared.open(url)
+        let article = articles[indexPath.row]
+        guard article.url != nil else { return }
+        
+        let detailViewController = ArticleDetailViewController(article: article)
+        
+        if let viewController = tableView.findViewController() {
+            viewController.navigationController?.pushViewController(detailViewController, animated: true)
+        }
     }
 
 }
