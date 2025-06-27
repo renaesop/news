@@ -39,9 +39,9 @@ class FavoritesViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(NewsCell.self, forCellReuseIdentifier: "FavoriteCell")
+        tableView.register(FavoritesCell.self, forCellReuseIdentifier: "FavoriteCell")
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
+        tableView.estimatedRowHeight = 280
         
         view.addSubview(tableView)
         
@@ -102,51 +102,14 @@ extension FavoritesViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell", for: indexPath) as! NewsCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell", for: indexPath) as! FavoritesCell
         let article = favorites[indexPath.row]
         
-        // Configure cell
-        cell.title.text = article.titleDisplay
-        cell.summary.text = article.descriptionOrContent
-        cell.source.text = article.source?.name
-        cell.ago.text = article.ago
+        // Load article data using the same method as CNN cell
+        cell.load(article: article, downloader: imageDownloader)
         
         // Configure favorite button
-        cell.updateFavoriteButton(isFavorite: true)
-        cell.favoriteAction = { [weak self] in
-            FavoritesManager.shared.toggleFavorite(article)
-            self?.loadFavorites()
-        }
-        
-        // Load image if available
-        if let urlString = article.urlToImage {
-            cell.load(urlString: urlString, downloader: imageDownloader)
-        }
-        
-        // Simple layout
-        cell.contentView.subviews.forEach { $0.removeFromSuperview() }
-        
-        let stackView = UIStackView(arrangedSubviews: [cell.title, cell.summary, cell.source])
-        stackView.axis = .vertical
-        stackView.spacing = 8
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        cell.favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        cell.contentView.addSubview(stackView)
-        cell.contentView.addSubview(cell.favoriteButton)
-        
-        NSLayoutConstraint.activate([
-            stackView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor, constant: 16),
-            stackView.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: 12),
-            stackView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor, constant: -12),
-            stackView.trailingAnchor.constraint(equalTo: cell.favoriteButton.leadingAnchor, constant: -16),
-            
-            cell.favoriteButton.centerYAnchor.constraint(equalTo: cell.contentView.centerYAnchor),
-            cell.favoriteButton.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor, constant: -16),
-            cell.favoriteButton.widthAnchor.constraint(equalToConstant: 44),
-            cell.favoriteButton.heightAnchor.constraint(equalToConstant: 44)
-        ])
+        cell.configureFavoriteButton(for: article, in: tableView, at: indexPath)
         
         return cell
     }
