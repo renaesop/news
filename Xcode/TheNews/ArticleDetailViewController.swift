@@ -105,27 +105,9 @@ class ArticleDetailViewController: UIViewController {
         titleLabel.text = article.titleDisplay
         titleLabel.font = .boldSystemFont(ofSize: 18)
         titleLabel.textColor = .label
-        titleLabel.numberOfLines = 2
+        titleLabel.numberOfLines = 1
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        // Bottom container with source and favorite button
-        bottomContainer = UIView()
-        bottomContainer.backgroundColor = .systemBackground
-        bottomContainer.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Source label
-        sourceLabel = UILabel()
-        sourceLabel.text = article.source?.name?.uppercased()
-        sourceLabel.font = .systemFont(ofSize: 14)
-        sourceLabel.textColor = .secondaryLabel
-        sourceLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Favorite button
-        favoriteButton = UIButton(type: .system)
-        favoriteButton.tintColor = .systemRed
-        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
-        updateFavoriteButton()
         
         // Progress view
         progressView = UIProgressView(progressViewStyle: .bar)
@@ -135,13 +117,10 @@ class ArticleDetailViewController: UIViewController {
         
         // Add subviews
         view.addSubview(topContainer)
-        view.addSubview(bottomContainer)
         view.addSubview(progressView)
         
         topContainer.addSubview(backButton)
         topContainer.addSubview(titleLabel)
-        bottomContainer.addSubview(sourceLabel)
-        bottomContainer.addSubview(favoriteButton)
         
         // Setup constraints
         NSLayoutConstraint.activate([
@@ -149,7 +128,7 @@ class ArticleDetailViewController: UIViewController {
             topContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             topContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             topContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            topContainer.heightAnchor.constraint(equalToConstant: 80),
+            topContainer.heightAnchor.constraint(equalToConstant: 60),
             
             // Back button
             backButton.leadingAnchor.constraint(equalTo: topContainer.leadingAnchor, constant: 16),
@@ -162,27 +141,11 @@ class ArticleDetailViewController: UIViewController {
             titleLabel.trailingAnchor.constraint(equalTo: topContainer.trailingAnchor, constant: -16),
             titleLabel.centerYAnchor.constraint(equalTo: topContainer.centerYAnchor),
             
-            // Bottom container
-            bottomContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            bottomContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            bottomContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            bottomContainer.heightAnchor.constraint(equalToConstant: 60),
-            
-            // Source label
-            sourceLabel.leadingAnchor.constraint(equalTo: bottomContainer.leadingAnchor, constant: 16),
-            sourceLabel.centerYAnchor.constraint(equalTo: bottomContainer.centerYAnchor),
-            
-            // Favorite button
-            favoriteButton.trailingAnchor.constraint(equalTo: bottomContainer.trailingAnchor, constant: -16),
-            favoriteButton.centerYAnchor.constraint(equalTo: bottomContainer.centerYAnchor),
-            favoriteButton.widthAnchor.constraint(equalToConstant: 44),
-            favoriteButton.heightAnchor.constraint(equalToConstant: 44),
-            
             // WebView
             webView.topAnchor.constraint(equalTo: topContainer.bottomAnchor),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webView.bottomAnchor.constraint(equalTo: bottomContainer.topAnchor),
+            webView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             // Progress view
             progressView.topAnchor.constraint(equalTo: topContainer.bottomAnchor),
