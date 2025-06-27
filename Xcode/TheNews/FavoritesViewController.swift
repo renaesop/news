@@ -39,7 +39,7 @@ class FavoritesViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(FavoritesCell.self, forCellReuseIdentifier: "FavoriteCell")
+        tableView.register(NewsCell.self, forCellReuseIdentifier: "FavoriteCell")
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 280
         
@@ -102,16 +102,69 @@ extension FavoritesViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell", for: indexPath) as! FavoritesCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell", for: indexPath) as! NewsCell
         let article = favorites[indexPath.row]
         
-        // Load article data using the same method as CNN cell
-        cell.load(article: article, downloader: imageDownloader)
+        // Configure cell with CNN-style layout
+        setupCNNStyleCell(cell: cell, article: article)
         
         // Configure favorite button
         cell.configureFavoriteButton(for: article, in: tableView, at: indexPath)
         
         return cell
+    }
+    
+    private func setupCNNStyleCell(cell: NewsCell, article: Article) {
+        // Clear existing constraints and subviews
+        cell.contentView.subviews.forEach { $0.removeFromSuperview() }
+        
+        // Configure fonts and colors to match CNN style
+        cell.summary.font = .boldSystemFont(ofSize: 20)
+        cell.source.textColor = .white
+        cell.source.font = UIFont.boldSystemFont(ofSize: 12)
+        cell.ago.textColor = .secondaryLabel
+        cell.ago.font = .preferredFont(forTextStyle: .caption1)
+        
+        // Set content
+        cell.summary.text = article.titleDisplay
+        cell.source.text = article.source?.name?.uppercased()
+        cell.ago.text = article.ago?.uppercased()
+        
+        // Load image
+        if let urlString = article.urlToImage {
+            cell.load(urlString: urlString, downloader: imageDownloader)
+        }
+        
+        // Add subviews
+        [cell.articleImageView, cell.summary, cell.ago, cell.favoriteButton].forEach { item in
+            cell.contentView.addSubviewForAutoLayout(item)
+        }
+        
+        // CNN-style layout constraints
+        let imageHeight: CGFloat = 210
+        let inset: CGFloat = 15
+        
+        NSLayoutConstraint.activate([
+            cell.articleImageView.topAnchor.constraint(equalTo: cell.contentView.topAnchor, constant: inset),
+            cell.articleImageView.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor),
+            cell.contentView.trailingAnchor.constraint(equalTo: cell.articleImageView.trailingAnchor),
+            cell.articleImageView.heightAnchor.constraint(equalToConstant: imageHeight),
+            
+            cell.summary.topAnchor.constraint(equalTo: cell.articleImageView.bottomAnchor, constant: inset),
+            cell.summary.leadingAnchor.constraint(equalTo: cell.contentView.readableContentGuide.leadingAnchor),
+            cell.summary.trailingAnchor.constraint(equalTo: cell.favoriteButton.leadingAnchor, constant: -8),
+            
+            cell.ago.topAnchor.constraint(equalTo: cell.summary.bottomAnchor, constant: inset),
+            cell.ago.leadingAnchor.constraint(equalTo: cell.contentView.readableContentGuide.leadingAnchor),
+            
+            cell.contentView.bottomAnchor.constraint(equalTo: cell.ago.bottomAnchor, constant: inset),
+            
+            // Favorite button constraints
+            cell.favoriteButton.topAnchor.constraint(equalTo: cell.summary.topAnchor),
+            cell.favoriteButton.trailingAnchor.constraint(equalTo: cell.contentView.readableContentGuide.trailingAnchor),
+            cell.favoriteButton.widthAnchor.constraint(equalToConstant: 44),
+            cell.favoriteButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
     }
 }
 
